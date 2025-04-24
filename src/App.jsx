@@ -1,7 +1,13 @@
-import './App.css';
+import './index.scss';
+import Quiz from './components/quiz';
 
 function App() {
-	return <>Hello World!</>;
+	return (
+		<div className='app-container'>
+			<h1>Quiz App</h1>
+			<Quiz />
+		</div>
+	);
 }
 
 export default App;
