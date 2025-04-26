@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Results from './results';
 
 const Quiz = () => {
 	const questionBank = [
@@ -6,7 +7,6 @@ const Quiz = () => {
 			question: 'What is the capital of Poland?',
 			options: ['Berlin', 'Moscow', 'Warsaw', 'Paris'],
 			answer: 'Warsaw',
-			key: 1,
 		},
 		{
 			question: 'What is the largest planet in our Solar System?',
@@ -23,6 +23,7 @@ const Quiz = () => {
 
 	const [userAnswers, setUserAnswers] = useState(initialAnswers);
 	const [currentQuestion, setCurrentQuestion] = useState(0);
+	const [isQuizFinished, setIsQuizFinished] = useState(false);
 
 	const handleSelectOption = (option) => {
 		const newUserAnswers = [...userAnswers];
@@ -33,14 +34,32 @@ const Quiz = () => {
 	const selectedAnswer = userAnswers[currentQuestion];
 
 	const goToNext = () => {
-		currentQuestion < questionBank.length - 1
-			? setCurrentQuestion(currentQuestion + 1)
-			: null;
+		if (currentQuestion === questionBank.length - 1) {
+			setIsQuizFinished(true);
+		} else {
+			setCurrentQuestion(currentQuestion + 1);
+		}
 	};
 
 	const goToPrev = () => {
 		currentQuestion > 0 ? setCurrentQuestion(currentQuestion - 1) : null;
 	};
+
+	const restartQuiz = () => {
+		setUserAnswers(initialAnswers);
+		setCurrentQuestion(0);
+		setIsQuizFinished(false);
+	};
+
+	if (isQuizFinished) {
+		return (
+			<Results
+				userAnswers={userAnswers}
+				questionBank={questionBank}
+				restartQuiz={restartQuiz}
+			/>
+		);
+	}
 
 	return (
 		<div>

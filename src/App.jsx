@@ -1,5 +1,6 @@
 import './index.scss';
 import Quiz from './components/quiz';
+import Results from './components/results';
 
 function App() {
 	return (
